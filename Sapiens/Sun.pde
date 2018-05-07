@@ -8,7 +8,11 @@ class Sun {
   }
   
   public float getEnergy(int sx, int sy) {
-    float distance = sqrt((x - sx) * (x - sx) + (y - sy) * (y - sy));
+    float rightDistance = abs(x - sx);
+    float leftDistance = world.size - rightDistance;
+    float xdistance = min(leftDistance, rightDistance);
+    
+    float distance = sqrt(xdistance * xdistance + (y - sy) * (y - sy));
     float multiplier = 3;
     
     return (distance < 200)? multiplier : 0;

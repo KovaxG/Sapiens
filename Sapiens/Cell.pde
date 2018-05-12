@@ -2,13 +2,15 @@ class Cell {
   public int x;
   public int y;
   public float energy;
+  public int type; // 0 -> Water, 1 -> Earth
   public World world;
   
-  public Cell(int x, int y, World world) {
+  public Cell(int x, int y, World world, int type) {
     this.x = x;
     this.y = y;
     this.world = world;
     this.energy = 0;
+    this.type = type;
   }
   
   public void update(Sun sun) {
@@ -20,8 +22,20 @@ class Cell {
     int offsetX = 0;
     int offsetY = 0;
     
-    if (energy > 200) brown();
-    else white();
+    switch (type) {
+      case earth:
+        if (energy > 200) brown();
+        else white();
+        break;
+      
+      case water:
+        blue();
+        break;
+        
+      default: 
+        black();
+    }
+    
     point(x + offsetX, y + offsetY);
   }
   
@@ -42,3 +56,14 @@ void brown() {
 void white() {
   stroke(255);
 }
+
+void blue() {
+  stroke(0, 0, 255);
+}
+
+void black() {
+  stroke(0);
+}
+
+final int water = 0;
+final int earth = 1;

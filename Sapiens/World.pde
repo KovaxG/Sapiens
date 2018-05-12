@@ -10,7 +10,10 @@ class World {
     
     for (int x = 0; x < size; x++) {
       for (int y = 0; y < size; y++) {
-        cells[x][y] = new Cell(x, y, world);
+        float elevation = noise(x / 100f, y / 100f);
+        int type = elevation > 0.5? earth : water;
+        
+        cells[x][y] = new Cell(x, y, world, type);
       }
     }
     
@@ -19,7 +22,7 @@ class World {
   }
   
   public void update() {
-    sun.x = (sun.x > 500)? 0 : sun.x + 10;
+    sun.x = (sun.x > 500)? 0 : sun.x + 1;
     
     for (int x = 0; x < size; x++) {
       for (int y = 0; y < size; y++) {
@@ -34,6 +37,10 @@ class World {
         cells[x][y].draw();
       }
     }
+    
+    stroke(0);
+    fill(255, 255, 0);
+    ellipse(sun.x, sun.y, 5, 5);
   }
   
   public void drawEnergy() {

@@ -16,7 +16,7 @@ void draw() {
   long dtc = millis() - t0;
   t0 = millis();
   
-  world.drawEnergy();
+  world.draw();
   
   long dtr = millis() - t0;
   
